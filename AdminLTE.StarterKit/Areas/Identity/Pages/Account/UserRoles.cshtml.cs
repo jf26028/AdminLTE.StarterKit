@@ -59,28 +59,35 @@ namespace AdminLTE.StarterKit.Areas.Identity.Pages.Account
                 UserRoles.Add(userRolesViewModel);
             }
         }
-        public async Task OnPost()
+        public async Task<IActionResult> OnPost()
         {
             var user = await _userManager.FindByIdAsync(UserId);
+
             if (user == null)
             {
-                return;
+                Page();
             }
+
             var roles = await _userManager.GetRolesAsync(user);
             var result = await _userManager.RemoveFromRolesAsync(user, roles);
+
             if (!result.Succeeded)
             {
                 _toastNotification.AddErrorToastMessage("Cannot remove user existing roles");
-                return;
+                Page();
             }
+
             result = await _userManager.AddToRolesAsync(user, UserRoles.Where(x => x.Selected).Select(y => y.RoleName));
+
             if (!result.Succeeded)
             {
                 _toastNotification.AddErrorToastMessage("Cannot add selected roles to user");
-                return;
+                Page();
             }
+
             _toastNotification.AddSuccessToastMessage("Updated User Roles");
-            await OnGet(UserId);
+
+            return RedirectToPage("Users");
         }
     }
     public class UserRolesViewModel

@@ -15,10 +15,8 @@ namespace AdminLTE.StarterKit.Areas.Identity.Pages.Account
     public class UsersModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
         public UsersModel(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            _roleManager = roleManager;
             _userManager = userManager;
             this.Users = new List<UsersViewModel>();
         }
