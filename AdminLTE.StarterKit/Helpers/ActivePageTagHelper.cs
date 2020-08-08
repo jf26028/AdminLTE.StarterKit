@@ -1,14 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace AdminLTE.StarterKit.Helpers
 {
-    [HtmlTargetElement(Attributes = "is-active-page")]
+	[HtmlTargetElement(Attributes = "is-active-page")]
     public class ActivePageTagHelper : TagHelper
     {
         /// <summary>The name of the action method.</summary>

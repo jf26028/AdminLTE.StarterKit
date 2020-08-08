@@ -49,6 +49,7 @@ namespace AdminLTE.StarterKit.Areas.Mail.Pages
         }
         public async Task<IActionResult> OnPostAsync()
         {
+            // todo:  try/catch
             await _emailSender.Send(Input.To, Input.Subject,Input.Body,from:Input.From,files:Input.files);
             await LoadAsync();
             return Page();

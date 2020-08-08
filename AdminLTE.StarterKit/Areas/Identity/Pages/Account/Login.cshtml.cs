@@ -2,38 +2,33 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using AdminLTE.StarterKit.Models;
 using System.Net.Mail;
-using NToastNotify;
+using AdminLTE.StarterKit.Infrastructure.Extensions;
 
 namespace AdminLTE.StarterKit.Areas.Identity.Pages.Account
 {
-    [AllowAnonymous]
+	[AllowAnonymous]
     public class LoginModel : PageModel
     {
-        private readonly IToastNotification _toastNotification;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
         public LoginModel(SignInManager<ApplicationUser> signInManager, 
             ILogger<LoginModel> logger,
-            UserManager<ApplicationUser> userManager,
-             IToastNotification toastNotification)
+            UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-            _toastNotification = toastNotification;
         }
 
         [BindProperty]
@@ -98,7 +93,7 @@ namespace AdminLTE.StarterKit.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(userName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    _toastNotification.AddSuccessToastMessage($"Logged in as {userName}");
+                    TempData.FlashSuccess($"Logged in as {userName}");
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }

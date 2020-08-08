@@ -12,10 +12,11 @@
     <div class="wrapper">
         <partial name="AdminLTE/_TopNavigation" />
         <partial name="AdminLTE/_Sidebar" />
-        <div class="content-wrapper" style="padding: 20px;min-height: 530.031px;background:white!important;">
-            @RenderBody()
-        </div>
-        @await Component.InvokeAsync("NToastNotify")
+		<div class="content-wrapper" style="padding: 20px;min-height: 530.031px;background:white!important;">
+            <partial name="_Flash" />
+
+			@RenderBody()
+		</div>
         <partial name="AdminLTE/_Footer" />
         <aside class="control-sidebar control-sidebar-dark">
         </aside>

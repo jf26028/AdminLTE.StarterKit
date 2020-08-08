@@ -1,26 +1,23 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AdminLTE.StarterKit.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace AdminLTE.StarterKit.Areas.Identity.Pages.Account
 {
-    [Authorize(Roles = "SuperAdmin")]
+	[Authorize(Roles = "SuperAdmin")]
     public class UsersModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
         public UsersModel(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
-            this.Users = new List<UsersViewModel>();
         }
-        public List<UsersViewModel> Users { get; set; }
+
+        public List<UsersViewModel> Users { get; set; } = new List<UsersViewModel>();
         
         public async Task OnGet()
         {
@@ -36,6 +33,7 @@ namespace AdminLTE.StarterKit.Areas.Identity.Pages.Account
                 Users.Add(thisViewModel);
             }
         }
+
         private async Task<List<string>> GetUserRoles(ApplicationUser user)
         {
             return new List<string>(await _userManager.GetRolesAsync(user));

@@ -1,0 +1,17 @@
+﻿@{
+	var flashTypes = new[] { "warning", "success", "info", "danger" };
+
+	foreach (var flashType in flashTypes)
+	{
+		if (TempData.TryGetValue("flash." + flashType, out object cookieValue))
+		{
+			<div class="alert alert-@flashType" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true" onclick="this.parentElement.style.display='none'">&times;</span>
+				</button>
+
+				@cookieValue
+			</div>
+		}
+	}
+}
