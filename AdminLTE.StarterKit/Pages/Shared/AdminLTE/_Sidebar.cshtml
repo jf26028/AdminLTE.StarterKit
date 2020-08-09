@@ -4,9 +4,9 @@
 <aside class="main-sidebar elevation-2 sidebar-dark-primary">
     <!-- Brand Logo -->
     <a href="/" class="brand-link">
-        <img src="~/img/codewithmukesh_logo.jpg"
+        <img src="~/img/favicon-32x32.png"
              alt="AdminLTE Logo"
-             class="brand-image img-circle elevation-0"
+             class="brand-image elevation-0"
              style="opacity: .8">
         <div>
             <span class="brand-text font-weight-light">AdminLTE Starter Kit</span>
@@ -19,7 +19,6 @@
         <!-- Sidebar user (optional) -->
         @if (SignInManager.IsSignedIn(User))
         {
-
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
 
                 @if (UserManager.GetUserAsync(User).Result.ProfilePicture != null)
@@ -30,8 +29,9 @@
                 }
 
                 <div class="info">
-                    <a href="#" class="d-block">
-                        @UserManager.GetUserAsync(User).Result.FirstName @UserManager.GetUserAsync(User).Result.LastName @{
+                    <a href="/Identity/Account/Manage" class="d-block">
+                        @UserManager.GetUserAsync(User).Result.FirstName @UserManager.GetUserAsync(User).Result.LastName
+                        @{
                             if (User.IsInRole("SuperAdmin"))
                             {
                                 <span class="badge badge-danger">SA</span>

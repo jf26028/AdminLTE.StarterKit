@@ -1,13 +1,11 @@
 ﻿using AdminLTE.StarterKit.Models;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace AdminLTE.StarterKit.Data
 {
-    public class IdentitySeed
+	public class IdentitySeed
     {
         public static async Task SeedRolesAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {

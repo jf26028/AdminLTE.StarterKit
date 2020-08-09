@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AdminLTE.StarterKit.Models;
+﻿using AdminLTE.StarterKit.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +15,7 @@ namespace AdminLTE.StarterKit.Data
         {
             base.OnModelCreating(builder);
             builder.HasDefaultSchema("Identity");
+
             builder.Entity<ApplicationUser>(entity =>
             {
                 entity.ToTable(name: "User");
@@ -27,6 +25,7 @@ namespace AdminLTE.StarterKit.Data
             {
                 entity.ToTable(name: "Role");
             });
+
             builder.Entity<IdentityUserRole<string>>(entity =>
             {
                 entity.ToTable("UserRoles");

@@ -1,6 +1,8 @@
 using AdminLTE.StarterKit.Data;
+using AdminLTE.StarterKit.Infrastructure;
 using AdminLTE.StarterKit.Models;
 using AdminLTE.StarterKit.Services;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,6 +29,8 @@ namespace AdminLTE.StarterKit
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			// services.AddMiniProfiler().AddEntityFramework();
+
 			services.AddDbContext<ApplicationDbContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -44,9 +48,14 @@ namespace AdminLTE.StarterKit
 				o.Filters.Add(new AuthorizeFilter(policy));
 			});
 
-			services.AddRazorPages();
+			services.AddRazorPages(opt =>
+			{
+				opt.Conventions.ConfigureFilter(new DbContextTransactionPageFilter());
+				opt.Conventions.ConfigureFilter(new ValidatorPageFilter());
+			})
+			.AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<Startup>(); });
 
-			services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			services.Configure<SMTPSettings>(Configuration.GetSection("SMTPSettings"));
 			services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
 			services.AddScoped<IEmailService, EmailService>();
